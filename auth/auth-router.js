@@ -22,10 +22,11 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
 	let { username, password } = req.body;
-
+	
 	Users.findBy({ username })
-		.first()
-		.then(user => {
+	.first()
+	.then(user => {
+		console.log(req.session.user);
 			if (user && bcrypt.compareSync(password, user.password)) {
 				req.session.user = user;
 				return res.status(200).json({ message: `Welcome ${user.username}!` });
